@@ -248,19 +248,24 @@ $xkcd_pw_gen_wordlist = Array(
 
 $wordList_len = count($xkcd_pw_gen_wordlist);
 
-//need to check if $_POST is empty first.
-if (!empty($_POST) && $_POST['number_of_words']>0 && $_POST['number_of_words'] < 10) {
-	$numOfWords = $_POST['number_of_words']; 
-} else {
-	$numOfWords = 0;
-}
+//@var store the message if the number of words entered is not allowed.
+$numErr = "";
 
-$passwd = randWordGen($numOfWords, $wordList_len, $xkcd_pw_gen_wordlist); 
+$passwd = randWordGen($numErr, $wordList_len, $xkcd_pw_gen_wordlist); 
 
 
 //to do add a number; add a symbol
-function randWordGen ($numOfWords, $wordList_len, &$xkcd_pw_gen_wordlist) {
+function randWordGen (&$numErr, $wordList_len, &$xkcd_pw_gen_wordlist) {
 	$passwd = "";
+
+	//need to check if $_POST is empty first.
+	if (!empty($_POST) && is_numeric($_POST['number_of_words'])&& $_POST['number_of_words']>0 && $_POST['number_of_words'] < 10) {
+		$numOfWords = $_POST['number_of_words']; 
+	} else {
+		$numOfWords = 0;
+		$numErr = "Please enter a number 1 ~ 9.";
+	}
+	
 	for ($i = 0; $i < $numOfWords; $i++) {
 		$randNum = rand(0, $wordList_len-1);
 		if ($passwd == ""){
@@ -271,15 +276,24 @@ function randWordGen ($numOfWords, $wordList_len, &$xkcd_pw_gen_wordlist) {
 		}
 	}
 
+	//check number
 	if (!empty($_POST) && $_POST['number_of_words']>0 && isset($_POST['add_number']) && $_POST['add_number'] == "on") {
 			$passwd .=rand(0,9);
 	}
 
+	//check symbol
 	if (!empty($_POST) && $_POST['number_of_words']>0 && isset($_POST['add_symbol']) && $_POST['add_symbol'] == "on") {
 			//check if needs escape
 			$symbols = Array("`", '"', "~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_",  "-", "+", "=", "{", "}", "[", "]", "\\", "|",  ":",  ";",  "'", "<", ">", ",", ".", "?", "/");
 			$num_symbols = count($symbols);
 			$passwd .=$symbols[rand(0,$num_symbols-1)];
+	}
+
+	//check case
+	if (isset($_POST['charStyle']) && $_POST['charStyle'] == 'upper') {
+			$passwd = strtoupper($passwd);
+	} else if (isset($_POST['charStyle']) && $_POST['charStyle'] == 'first_upper') {
+			$passwd = ucfirst($passwd);
 	}
 
 	return $passwd;

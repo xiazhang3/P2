@@ -1,5 +1,5 @@
 #Live URL
-http://p1xiazhang.gopagoda.com
+http://p2xiazhang.gopagoda.com
 #Description
 Project 2: xkcd Password Generator
 

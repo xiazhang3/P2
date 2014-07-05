@@ -24,15 +24,15 @@
 		</div>
 
 		<p class='password'>
-			Your Password: <br>
-			<?php echo $passwd; ?>
+				Your Password: <br>
+				<?php echo $passwd; ?>
 		</p>
 		
 		<form action = "index.php" method = "POST">
 			<p>
-			
 				<label for='number_of_words'># of Words</label>
-				<input maxlength=1 type='text' name='number_of_words' id='number_of_words' value=''>  (Max 9)
+				<input maxlength=1 type='text' name='number_of_words' id='number_of_words' value=''> 
+				<em><?php echo $numErr; ?> </em>
 				<br>
 					
 				<input type='checkbox' name='add_number' id='add_number' > 
@@ -40,9 +40,25 @@
 				<br>
 				<input type='checkbox' name='add_symbol' id='add_symbol' > 
 				<label for='add_symbol'>Add a symbol</label>
+				<br>
+
+				<label for="charStyle">Password display style</label>
+				<select name="charStyle">
+					<option value="upper">All Uppercase</option>
+					<option value="lower">All Lowercase</option>
+					<option value="first_upper">First Uppercase</option>
+				</select>
 			</p>
 		
 			<input type='submit' class='btn btn-default' value='Generate'>
+			<br>
+			<br>
+			
+			<p>
+				For details, please visit <a href='http://xkcd.com/936/'>http://xkcd.com/936/</a>.
+				<br>
+				<img class='comic' src='http://imgs.xkcd.com/comics/password_strength.png' alt='xkcd style passwords'>
+			</p>
 					
 		</form>
 
