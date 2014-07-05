@@ -1,0 +1,11 @@
+h1 {
+	text-align:center;
+}
+
+.password {
+	background-color: #FFFF99;
+	font-size: 20px;
+	padding: 10px;
+	font-family: Georgia, serif;
+	font-weight: bold;
+}
