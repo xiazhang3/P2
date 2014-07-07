@@ -43,7 +43,7 @@
 				<br>
 
 				<label for="charStyle">Password display style</label>
-				<select name="charStyle">
+				<select name="charStyle" id="charStyle">
 					<option value="upper">All Uppercase</option>
 					<option value="lower">All Lowercase</option>
 					<option value="first_upper">First Uppercase</option>
